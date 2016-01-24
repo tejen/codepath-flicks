@@ -9,29 +9,32 @@
 import UIKit
 import AFNetworking
 
-class FlicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FlicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var networkError: UIView!
+
     var time : Float = 0.0
     var timer: NSTimer?
     var tracker = NSDate().timeIntervalSince1970;
     
     var refreshControl: UIRefreshControl?;
     var refreshing = false;
-    
+
+    var allMovies: [NSDictionary]?;
     var movies: [NSDictionary]?;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tracker = NSDate().timeIntervalSince1970;
-        
-        tableView.frame.origin.y = CGFloat(0);
-        tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+//        tableView.frame.origin.y = CGFloat(0);
+//        tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
         tableView.dataSource = self;
         tableView.delegate = self;
+        searchBar.delegate = self;
         
         loadStarted();
         
@@ -48,12 +51,22 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        movies = searchText.isEmpty ? allMovies : allMovies!.filter({(data: NSDictionary) -> Bool in
+            let left = data["title"]! as! String;
+            return left.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+        })
+        
+        tableView.reloadData()
+    }
+    
     func runAfterDelay(delay: NSTimeInterval, block: dispatch_block_t) {
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
         dispatch_after(time, dispatch_get_main_queue(), block)
     }
     
     func reloadList() {
+        tracker = NSDate().timeIntervalSince1970;
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
         let request = NSURLRequest(
@@ -69,7 +82,10 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
-                if let data = dataOrNil {
+                if error != nil {
+                    self.loadComplete(false);
+                    self.showNetworkError();
+                } else if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             self.movies = responseDictionary["results"] as! [NSDictionary];
@@ -80,13 +96,19 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
                                     return false
                                 }
                             }
-                            self.tableView.reloadData();
+                            self.allMovies = self.movies;
                             let curTrack = NSDate().timeIntervalSince1970;
                             print(curTrack);
-                            if((self.refreshing == false) && (curTrack - self.tracker > 5)) {
+                            if((self.refreshing == false) || (curTrack - self.tracker > 2)) {
+                                self.searchBar.text = "";
+                                self.searchBar.resignFirstResponder();
+                                self.tableView.reloadData();
                                 self.loadComplete();
                             } else {
+                                self.searchBar.text = "";
+                                self.searchBar.resignFirstResponder();
                                 self.runAfterDelay(1.0) {
+                                    self.tableView.reloadData();
                                     self.loadComplete();
                                 }
                             }
@@ -97,27 +119,60 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         task.resume()
     }
     
-    @IBAction func loadStarted() {
+    @IBAction func tapOnNetworkError(sender: AnyObject) {
+        hideNetworkError();
+        loadStarted();
+        reloadList();
+    }
+    
+    func loadStarted() {
         progressBar.progress = 0.0;
         time = 0.0;
+        hideNetworkError();
         UIView.animateWithDuration(0.5, animations: {
             self.progressBar.alpha = 1.0;
         });
         timer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector:Selector("setProgress"), userInfo: nil, repeats: true);
     }
     
-    @IBAction func loadComplete() {
+    func loadComplete(showContent : Bool? = true) {
         timer!.invalidate();
         progressBar.setProgress(1.0, animated: true);
-        UIView.animateWithDuration(2.0, animations: {
-            self.progressBar.alpha = 0.0;
+        if(showContent != false) {
+            UIView.animateWithDuration(2.0, animations: {
+                self.progressBar.alpha = 0.0;
+            });
+            self.tableView.hidden = false;
+            UIView.animateWithDuration(1.0, animations: {
+                self.tableView.alpha = 1.0;
+            });
+            if(refreshing == true) {
+                refreshing = false;
+                self.refreshControl!.endRefreshing();
+            }
+        } else {
+            UIView.animateWithDuration(0.5, animations: {
+                self.progressBar.alpha = 0.5;
+            });
+        }
+    }
+    
+    func showNetworkError() {
+        self.networkError.alpha = 0.0;
+        self.networkError.hidden = false;
+        UIView.animateWithDuration(0.5, animations: {
+            self.networkError.alpha = 1.0;
         });
-        UIView.animateWithDuration(1.0, animations: {
-            self.tableView.alpha = 1.0;
-        });
-        if(refreshing == true) {
-            refreshing = false;
-            self.refreshControl!.endRefreshing();
+    }
+    
+    func hideNetworkError() {
+        if(self.networkError.hidden == false) {
+            UIView.animateWithDuration(0.5, animations: {
+                self.networkError.alpha = 0.0;
+            });
+            runAfterDelay(0.5, block: {
+                self.networkError.hidden = true;
+            });
         }
     }
     
@@ -140,7 +195,6 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         if let movies = movies {
             return movies.count;
         }
-        // network error
         return 0;
     }
     
