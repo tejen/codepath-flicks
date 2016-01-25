@@ -48,13 +48,15 @@ Here's a walkthrough of implemented user stories:
 
 **(Watch this Video Walkthrough on [YouTube](http://youtu.be/pzkrRNaizEM) if the GIF lags or fails to download.)**
 
-<img src='http://img.tejen.net/86c87c16b4f2fb45a9660ffccc48de79.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-```json
+<img src='http://x.tejen.net/bqn' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+```php
 NOTE: GIF FILE SIZE IS VERY LARGE (60+ MB).
 VIEWING THE YOUTUBE VIDEO INSTEAD IS RECOMMENDED.
 See link below...
 ```
 http://youtu.be/pzkrRNaizEM
+
+<sup>**GitHub typically clones remote images to GitHub Camo servers for your security, a process which fails for large-filesize images.**</sup>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
