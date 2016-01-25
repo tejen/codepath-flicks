@@ -60,6 +60,12 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.reloadData()
     }
     
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        (movies, searchBar.text) = (allMovies, "")
+        searchBar.resignFirstResponder()
+        tableView.reloadData();
+    }
+    
     func runAfterDelay(delay: NSTimeInterval, block: dispatch_block_t) {
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
         dispatch_after(time, dispatch_get_main_queue(), block)
@@ -204,7 +210,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         let movie = movies![indexPath.row];
         let title = movie["title"] as! String;
         let overview = movie["overview"] as! String;
-        let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w500/" + (movie["poster_path"] as! String));
+        let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w185/" + (movie["poster_path"] as! String));
         let releaseDate = movie["release_date"] as! String;
         let voteAverage = movie["vote_average"] as! NSNumber;
         let popularity = movie["popularity"] as! NSNumber;
@@ -260,6 +266,17 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         cell.ratingLabel.layer.cornerRadius = 5;
         
         return cell;
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toDetails") {
+            let cell = sender as! UITableViewCell;
+            let indexPath = tableView.indexPathForCell(cell);
+            let movie = movies![indexPath!.row];
+            let detailViewController = segue.destinationViewController as! DetailViewController;
+            detailViewController.movieID = movie["id"]!.integerValue;
+            detailViewController.movieTitle = movie["title"]! as! String;
+        }
     }
 
     /*

@@ -234,6 +234,17 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
             timer!.invalidate()
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toDetails") {
+            let cell = sender as! UICollectionViewCell;
+            let indexPath = collectionView.indexPathForCell(cell);
+            let movie = movies![indexPath!.row];
+            let detailViewController = segue.destinationViewController as! DetailViewController;
+            detailViewController.movieID = movie["id"]!.integerValue;
+            detailViewController.movieTitle = movie["title"]! as! String;
+        }
+    }
 
     /*
     // MARK: - Navigation
