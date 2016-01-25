@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 **(Watch this Video Walkthrough on [YouTube](http://youtu.be/pzkrRNaizEM) if the [GIF](http://x.tejen.net/bqn) lags or fails to download.)**
 
-<img src='http://img.tejen.net/b9f0d052072252d4aa6b2f61c3ed7432.gif' title='Video Walkthrough' width='300' alt='Video Walkthrough' />
+[<img src='http://img.tejen.net/b9f0d052072252d4aa6b2f61c3ed7432.gif' title='Video Walkthrough' width='300' alt='Video Walkthrough' />](http://x.tejen.net/bqn)
 ```php
 NOTE: GIF FILE SIZE IS VERY LARGE (60+ MB).
 VIEWING THE YOUTUBE VIDEO INSTEAD IS RECOMMENDED.
