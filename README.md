@@ -52,7 +52,7 @@ Here's a walkthrough of implemented user stories:
 ```php
 NOTE: GIF FILE SIZE IS VERY LARGE (60+ MB).
 VIEWING THE YOUTUBE VIDEO INSTEAD IS RECOMMENDED.
-See link below...
+The GIF and Video are identical. See Video link below...
 ```
 Video: http://youtu.be/pzkrRNaizEM
 
@@ -61,7 +61,7 @@ GIF: [x.tejen.net/bqn](http://x.tejen.net/bqn)
 
 <sup>**GitHub typically clones remote images to GitHub Camo servers for your security, a process which fails for large-filesize images.**</sup>
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+<sup>GIF created with [LiceCap](http://www.cockos.com/licecap/).</sup>
 
 ## Notes
 
