@@ -550,20 +550,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" paginationMode="leftToRight" id="Cbj-t4-aRq">
+                            <webView alpha="0.0" contentMode="scaleToFill" paginationMode="leftToRight" id="Cbj-t4-aRq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                             </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="KKZ-qO-qpG">
+                                <rect key="frame" x="142" y="265" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Showtimes" id="Zmk-Ja-69O">
                         <barButtonItem key="backBarButtonItem" title="Back" id="dXM-zv-OO7"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
+                        <outlet property="actIndicator" destination="KKZ-qO-qpG" id="2UJ-Ij-YQy"/>
                         <outlet property="browserView" destination="Cbj-t4-aRq" id="YvL-gk-5GG"/>
                         <outlet property="navBar" destination="Zmk-Ja-69O" id="Hdt-3O-Sqv"/>
                     </connections>

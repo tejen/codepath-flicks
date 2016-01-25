@@ -291,11 +291,13 @@ class DetailViewController: UIViewController {
             let showtimesViewController = segue.destinationViewController as! ShowtimesViewController;
             showtimesViewController.navTitle = "Showtimes & Tickets";
             showtimesViewController.movieTitle = movie!["title"]! as! String;
+            showtimesViewController.movieIMDBid = movie!["imdb_id"]! as! String;
         }
         if(segue.identifier == "toTrailer") {
             let showtimesViewController = segue.destinationViewController as! ShowtimesViewController;
             showtimesViewController.navTitle = "Watch Trailer";
             showtimesViewController.movieTitle = movie!["title"]! as! String;
+            showtimesViewController.movieIMDBid = movie!["imdb_id"]! as! String;
         }
     }
     

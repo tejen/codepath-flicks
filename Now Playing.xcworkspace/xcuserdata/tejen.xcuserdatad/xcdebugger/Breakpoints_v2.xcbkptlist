@@ -71,11 +71,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Now Playing/ShowtimesViewController.swift"
-            timestampString = "475400039.85071"
+            timestampString = "475415678.704477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -87,12 +87,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Now Playing/ShowtimesViewController.swift"
-            timestampString = "475400039.85071"
+            timestampString = "475415678.704477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "webViewDidFinishLoad(_:)"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -103,12 +103,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Now Playing/ShowtimesViewController.swift"
-            timestampString = "475400039.85071"
+            timestampString = "475416777.197879"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "webViewDidFinishLoad(_:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "doFandangoTrailer()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -119,28 +119,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Now Playing/ShowtimesViewController.swift"
-            timestampString = "475400039.85071"
+            timestampString = "475416782.215115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "webViewDidFinishLoad(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Now Playing/ShowtimesViewController.swift"
-            timestampString = "475400039.85071"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "webViewDidFinishLoad(_:)"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "doFandangoTrailer()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
