@@ -2,7 +2,7 @@
 
 **Now Playing** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **6** hours spent in total
+Time spent: **11** hours spent in total
 
 ## User Stories
 
@@ -10,7 +10,7 @@ The following **required** functionality is complete:
 
 - [X] User can view a list of movies currently playing in theaters from The Movie Database.
 - [X] Poster images are loaded using the UIImageView category in the AFNetworking library.
-- [X] User sees a loading state while waiting for the movies API. **Progress bar like the iOS Messages app!**
+- [X] User sees a loading state while waiting for the movies API.
 - [X] User can pull to refresh the movie list.
 
 The following **optional** features are implemented:
@@ -23,12 +23,24 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [X] Optional secondary UI (Collection View, sorted by Popularity instead of Rating)
+- [X] **Purchase tickets** from within the app!
+- [X] **Check showtimes** from within the app!
+- [X] **Watch movie trailers** from within the app!
+- [X] Progress Bar indicator for loading status
+- [X] Table view **sorted by Rating**
+- [X] Optionally switch from Table view to Collection View, **sorted by Popularity**)
+- [X] Color-coded background (correlating to Popularity level) behind movie ratings.
+- [X] Cancel button on search bar
+- [X] Scrollable text field for long Movie Overviews in Table view
+- [X] App Icon
+- [X] Launch Screen with logo and Activity Indicator animation
+- [X] Sexiness
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. Apple's Network Link Conditioner (see notes below)
+
+2. Dynamically building base paths for TMDB images (see notes below)
 
 ## Video Walkthrough 
 
@@ -40,7 +52,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Apple's Network Link Conditioner was absolutely indispensible during development. My network error messages are animated and tightly integrated with progress bar animations... developing this would have been a nightmare without the Conditioner. The Network Link Conditioner software should be endorsed, if not officially documented, in guidelines for this assignment.
+
+TMDB could easily change the base paths for images. We should build the base paths using the separate APIs that they provide to this end. Furthermore, we should opt for being more decisive with image sizes... some peers were using full 500px width poster images and downscaling them into 60px UIImageViews, which resulted in an aliased appearance in the image.
+
+Overall, though, this was a really really cool assignment! :)
 
 ## License
 
