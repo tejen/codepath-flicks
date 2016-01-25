@@ -46,7 +46,15 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+**(Watch this Video Walkthrough on [YouTube](http://youtu.be/pzkrRNaizEM) if the GIF lags or fails to download.)**
+
+<img src='http://img.tejen.net/86c87c16b4f2fb45a9660ffccc48de79.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+```json
+NOTE: GIF FILE SIZE IS VERY LARGE (60+ MB).
+VIEWING THE YOUTUBE VIDEO INSTEAD IS RECOMMENDED.
+See link below...
+```
+http://youtu.be/pzkrRNaizEM
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
