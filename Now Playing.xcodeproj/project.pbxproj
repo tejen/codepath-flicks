@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6521D4481C55F02C002B7A8C /* ShowtimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6521D4471C55F02C002B7A8C /* ShowtimesViewController.swift */; };
+		6521D44A1C55F717002B7A8C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6521D4491C55F717002B7A8C /* CoreLocation.framework */; };
 		6543A6C91C54A5BB008E687C /* tableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543A6C81C54A5BB008E687C /* tableCell.swift */; };
 		6546E4881C55B352005A3989 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6546E4871C55B352005A3989 /* DetailViewController.swift */; };
 		657821DC1C55177600A0C920 /* collectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657821DB1C55177600A0C920 /* collectionCell.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		4326E6738A6828C4E0A485F9 /* Pods-Now Playing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Now Playing.release.xcconfig"; path = "Pods/Target Support Files/Pods-Now Playing/Pods-Now Playing.release.xcconfig"; sourceTree = "<group>"; };
 		51C3156C83C0CB17BC2A5AF6 /* Pods_Now_Playing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Now_Playing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6521D4471C55F02C002B7A8C /* ShowtimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowtimesViewController.swift; sourceTree = "<group>"; };
+		6521D4491C55F717002B7A8C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6543A6C81C54A5BB008E687C /* tableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tableCell.swift; sourceTree = "<group>"; };
 		6546E4871C55B352005A3989 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		657821DB1C55177600A0C920 /* collectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = collectionCell.swift; sourceTree = "<group>"; };
@@ -41,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6521D44A1C55F717002B7A8C /* CoreLocation.framework in Frameworks */,
 				6AE1219D300E8A332F2E0F4D /* Pods_Now_Playing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,6 +56,7 @@
 		2F51DF7FD83E4F7EDE09E9FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6521D4491C55F717002B7A8C /* CoreLocation.framework */,
 				51C3156C83C0CB17BC2A5AF6 /* Pods_Now_Playing.framework */,
 			);
 			name = Frameworks;
@@ -103,6 +109,7 @@
 				658B77D51C544BB700AF96F6 /* FlicksViewController.swift */,
 				65D862821C5496E0000C00F9 /* GridViewController.swift */,
 				6546E4871C55B352005A3989 /* DetailViewController.swift */,
+				6521D4471C55F02C002B7A8C /* ShowtimesViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -245,6 +252,7 @@
 				6546E4881C55B352005A3989 /* DetailViewController.swift in Sources */,
 				657821DC1C55177600A0C920 /* collectionCell.swift in Sources */,
 				65D862831C5496E0000C00F9 /* GridViewController.swift in Sources */,
+				6521D4481C55F02C002B7A8C /* ShowtimesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

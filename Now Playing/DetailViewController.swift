@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
 
     var movie: NSDictionary?;
     var movieID: Int?;
-    var movieTitle: String?;
+    var movieTitle = "";
     
     @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
@@ -283,6 +283,19 @@ class DetailViewController: UIViewController {
         progressBar.setProgress(time / 3, animated: true)
         if time >= 2.7 {
             timer!.invalidate()
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toShowtimes") {
+            let showtimesViewController = segue.destinationViewController as! ShowtimesViewController;
+            showtimesViewController.navTitle = "Showtimes & Tickets";
+            showtimesViewController.movieTitle = movie!["title"]! as! String;
+        }
+        if(segue.identifier == "toTrailer") {
+            let showtimesViewController = segue.destinationViewController as! ShowtimesViewController;
+            showtimesViewController.navTitle = "Watch Trailer";
+            showtimesViewController.movieTitle = movie!["title"]! as! String;
         }
     }
     
