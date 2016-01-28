@@ -1,5 +1,5 @@
 //
-//  collectionCell.swift
+//  CollectionCell.swift
 //  Now Playing
 //
 //  Created by Tejen Hasmukh Patel on 1/24/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class collectionCell: UICollectionViewCell {
+class CollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var collectionPosterImageView: UIImageView!
     @IBOutlet weak var collectionPosterImageViewForeground: UIImageView!

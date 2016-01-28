@@ -48,14 +48,6 @@ class ShowtimesViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        print("Webview fail with error \(error)");
-    }
-    
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        return true;
-    }
-    
     func runAfterDelay(delay: NSTimeInterval, block: dispatch_block_t) {
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
         dispatch_after(time, dispatch_get_main_queue(), block)
@@ -89,16 +81,15 @@ class ShowtimesViewController: UIViewController, UIWebViewDelegate {
         
         browserView.stopLoading();
         
-        //                let FandangoMovieID = NSURL(string: initURL!)!.pathComponents![1];
-        //
-        //                let newURL = "http://www.fandango.com/\(FandangoMovieID)/movietimes".stringByReplacingOccurrencesOfString("-", withString: "_");
+        // let FandangoMovieID = NSURL(string: initURL!)!.pathComponents![1];
+        // let newURL = "http://www.fandango.com/\(FandangoMovieID)/movietimes".stringByReplacingOccurrencesOfString("-", withString: "_");
         
         var newURL = "";
         if(initURL == "") {
             // IMDB doesn't have trailer.
             // fallback to Fandango, Google's I'm Feeling Lucky algorithm
             var url = "\(self.movieTitle)+fandango".stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!;
-            url = "http://www.google.com/search?q="+url+"&btnI";
+            url = "http://www.google.com/search?q=" + url + "&btnI";
             let nsu = NSURL(string: url);
             let nsr = NSURLRequest(URL: nsu!);
             self.browserView.loadRequest(nsr);

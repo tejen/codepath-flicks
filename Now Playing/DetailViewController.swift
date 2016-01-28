@@ -94,14 +94,15 @@ class DetailViewController: UIViewController {
             let popularity = movie["popularity"] as! NSNumber;
             var color = UIColor(red: 0.27, green: 0.62, blue: 0.27, alpha: 1);
             switch(popularity.integerValue) {
-            case 20..<40: color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);
-            case 10..<20: color = UIColor(red: 0.95, green: 0.6, blue: 0.071, alpha: 1);
-            case 6..<10: color = UIColor(red: 0.90, green: 0.5, blue: 0.13, alpha: 1);
-            case 5..<6: color = UIColor(red: 0.83, green: 0.33, blue: 0.33, alpha: 1);
-            case 4..<5: color = UIColor(red: 0.91, green: 0.3, blue: 0.235, alpha: 1);
-            case 0..<4: color = UIColor(red: 0.75, green: 0.22, blue: 0.22, alpha: 1);
-            default: print("this is fun");
+                case 20..<40: color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);
+                case 10..<20: color = UIColor(red: 0.95, green: 0.6, blue: 0.071, alpha: 1);
+                case 6..<10: color = UIColor(red: 0.90, green: 0.5, blue: 0.13, alpha: 1);
+                case 5..<6: color = UIColor(red: 0.83, green: 0.33, blue: 0.33, alpha: 1);
+                case 4..<5: color = UIColor(red: 0.91, green: 0.3, blue: 0.235, alpha: 1);
+                case 0..<4: color = UIColor(red: 0.75, green: 0.22, blue: 0.22, alpha: 1);
+                default: break;
             }
+            
             ratingLabel.layer.backgroundColor = color.CGColor;
             ratingLabel.layer.cornerRadius = 5;
             
@@ -137,7 +138,7 @@ class DetailViewController: UIViewController {
             
             let revenue = movie["revenue"]!.integerValue!;
             if(revenue == 0) {
-                salesLabel.text = "Box Office Revenue Witheld"; // LOL
+                salesLabel.text = "Box Office Revenue Withheld"; // LOL
             } else {
                 salesLabel.text = formatter.stringFromNumber(revenue)! + " Box Office Sales";
             }
@@ -149,11 +150,15 @@ class DetailViewController: UIViewController {
                 synopsisText.text = synopsis;
             }
             
-            let backdropURL = NSURL(string: "http://image.tmdb.org/t/p/w500/" + (movie["backdrop_path"] as! String));
+            // encountered a movie in TMDB (WWE Royal Rumble 2016) that had no backdrop image! 1/28/16 @ 2:57am
+            if let backgroundPath = movie["backdrop_path"] as? String {
+                let backdropURL = NSURL(string: "http://image.tmdb.org/t/p/w500/" + backgroundPath);
+                blurredBackdrop.setImageWithURL(backdropURL!);
+                mainBackdrop.setImageWithURL(backdropURL!);
+                blurredSubBackdrop.setImageWithURL(backdropURL!);
+            }
+            
             let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w92/" + (movie["poster_path"] as! String));
-            blurredBackdrop.setImageWithURL(backdropURL!);
-            mainBackdrop.setImageWithURL(backdropURL!);
-            blurredSubBackdrop.setImageWithURL(backdropURL!);
             posterImage.setImageWithURL(posterURL!);
         }
     }

@@ -30,7 +30,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         collectionView.dataSource = self;
         collectionView.delegate = self;
         
-        var flow = UICollectionViewFlowLayout();
+        let flow = UICollectionViewFlowLayout();
         flow.itemSize = CGSizeMake(160, 240);
         flow.minimumInteritemSpacing = 0;
         flow.minimumLineSpacing = 0;
@@ -76,31 +76,31 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
                     self.loadComplete(false);
                     self.showNetworkError();
                 } else if let data = dataOrNil {
-                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                        data, options:[]) as? NSDictionary {
-                            self.movies = responseDictionary["results"] as! [NSDictionary];
-                            self.movies!.sortInPlace {
-                                if let a = $0 as? NSDictionary, b = $1 as? NSDictionary {
-                                    return (b["popularity"]?.integerValue < a["popularity"]?.integerValue)
-                                } else {
-                                    return false
-                                }
+                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData( data, options:[]) as? NSDictionary {
+                        self.movies = responseDictionary["results"] as? [NSDictionary];
+                        self.movies!.sortInPlace {
+                        if let a = $0 as? NSDictionary, b = $1 as? NSDictionary {
+                                return (b["popularity"]?.integerValue < a["popularity"]?.integerValue)
+                            } else {
+                                return false
                             }
-                            self.allMovies = self.movies;
-                            let curTrack = NSDate().timeIntervalSince1970;
-                            print(curTrack);
-                            if((self.refreshing == false) || (curTrack - self.tracker > 2)) {
+                        }
+                        self.allMovies = self.movies;
+                        let curTrack = NSDate().timeIntervalSince1970;
+                        print(curTrack);
+                        if((self.refreshing == false) || (curTrack - self.tracker > 2)) {
+                            self.collectionView.reloadData();
+                            self.loadComplete();
+                        } else {
+                            self.runAfterDelay(1.0) {
                                 self.collectionView.reloadData();
                                 self.loadComplete();
-                            } else {
-                                self.runAfterDelay(1.0) {
-                                    self.collectionView.reloadData();
-                                    self.loadComplete();
-                                }
                             }
+                        }
                     }
                 }
-        })
+            }
+        )
         
         task.resume()
     }
@@ -115,7 +115,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectionCell", forIndexPath: indexPath) as! collectionCell;
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectionCell", forIndexPath: indexPath) as! CollectionCell;
         
         let movie = movies![indexPath.row];
         let voteAverage = movie["vote_average"] as! NSNumber;
@@ -135,29 +135,18 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         cell.collectionRatingLabel.text = voteAverage.stringValue;
         var color = UIColor(red: 0.27, green: 0.62, blue: 0.27, alpha: 1);
-        if(popularity.integerValue < 40) {
-            color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);
-        }
-        if(popularity.integerValue < 20) { // rgb(243, 156, 18)
-            color = UIColor(red: 0.95, green: 0.6, blue: 0.071, alpha: 1);
-        }
-        if(popularity.integerValue < 10) { // rgb(230, 126, 34)
-            color = UIColor(red: 0.90, green: 0.5, blue: 0.13, alpha: 1);
-        }
-        if(popularity.integerValue < 6) { // rgb(211, 84, 0)
-            color = UIColor(red: 0.83, green: 0.33, blue: 0.33, alpha: 1);
-        }
-        if(popularity.integerValue < 5) { // rgb(231, 76, 60)
-            color = UIColor(red: 0.91, green: 0.3, blue: 0.235, alpha: 1);
-        }
-        if(popularity.integerValue < 4) { // rgb(192, 57, 43)
-            color = UIColor(red: 0.75, green: 0.22, blue: 0.22, alpha: 1);
+        switch(popularity.integerValue) {
+            case 20..<40: color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);
+            case 10..<20: color = UIColor(red: 0.95, green: 0.6, blue: 0.071, alpha: 1);
+            case 6..<10: color = UIColor(red: 0.90, green: 0.5, blue: 0.13, alpha: 1);
+            case 5..<6: color = UIColor(red: 0.83, green: 0.33, blue: 0.33, alpha: 1);
+            case 4..<5: color = UIColor(red: 0.91, green: 0.3, blue: 0.235, alpha: 1);
+            case 0..<4: color = UIColor(red: 0.75, green: 0.22, blue: 0.22, alpha: 1);
+            default: break;
         }
         
         cell.collectionRatingLabel.layer.backgroundColor = color.CGColor;
         cell.collectionRatingLabel.layer.cornerRadius = 5;
-        
-
         
         return cell;
     }

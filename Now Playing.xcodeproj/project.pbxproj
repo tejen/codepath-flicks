@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		6521D4481C55F02C002B7A8C /* ShowtimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6521D4471C55F02C002B7A8C /* ShowtimesViewController.swift */; };
 		6521D44A1C55F717002B7A8C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6521D4491C55F717002B7A8C /* CoreLocation.framework */; };
-		6543A6C91C54A5BB008E687C /* tableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543A6C81C54A5BB008E687C /* tableCell.swift */; };
+		6543A6C91C54A5BB008E687C /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543A6C81C54A5BB008E687C /* TableCell.swift */; };
 		6546E4881C55B352005A3989 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6546E4871C55B352005A3989 /* DetailViewController.swift */; };
-		657821DC1C55177600A0C920 /* collectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657821DB1C55177600A0C920 /* collectionCell.swift */; };
+		657821DC1C55177600A0C920 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657821DB1C55177600A0C920 /* CollectionCell.swift */; };
 		658B77C31C544B7500AF96F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B77C21C544B7500AF96F6 /* AppDelegate.swift */; };
 		658B77C81C544B7500AF96F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658B77C61C544B7500AF96F6 /* Main.storyboard */; };
 		658B77CA1C544B7500AF96F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 658B77C91C544B7500AF96F6 /* Assets.xcassets */; };
@@ -26,9 +26,9 @@
 		51C3156C83C0CB17BC2A5AF6 /* Pods_Now_Playing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Now_Playing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6521D4471C55F02C002B7A8C /* ShowtimesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowtimesViewController.swift; sourceTree = "<group>"; };
 		6521D4491C55F717002B7A8C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		6543A6C81C54A5BB008E687C /* tableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tableCell.swift; sourceTree = "<group>"; };
+		6543A6C81C54A5BB008E687C /* TableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 		6546E4871C55B352005A3989 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		657821DB1C55177600A0C920 /* collectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = collectionCell.swift; sourceTree = "<group>"; };
+		657821DB1C55177600A0C920 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		658B77BF1C544B7500AF96F6 /* Now Playing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Now Playing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		658B77C21C544B7500AF96F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		658B77C71C544B7500AF96F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,8 +65,8 @@
 		6543A6C71C54A591008E687C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6543A6C81C54A5BB008E687C /* tableCell.swift */,
-				657821DB1C55177600A0C920 /* collectionCell.swift */,
+				6543A6C81C54A5BB008E687C /* TableCell.swift */,
+				657821DB1C55177600A0C920 /* CollectionCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -248,9 +248,9 @@
 			files = (
 				658B77D61C544BB700AF96F6 /* FlicksViewController.swift in Sources */,
 				658B77C31C544B7500AF96F6 /* AppDelegate.swift in Sources */,
-				6543A6C91C54A5BB008E687C /* tableCell.swift in Sources */,
+				6543A6C91C54A5BB008E687C /* TableCell.swift in Sources */,
 				6546E4881C55B352005A3989 /* DetailViewController.swift in Sources */,
-				657821DC1C55177600A0C920 /* collectionCell.swift in Sources */,
+				657821DC1C55177600A0C920 /* CollectionCell.swift in Sources */,
 				65D862831C5496E0000C00F9 /* GridViewController.swift in Sources */,
 				6521D4481C55F02C002B7A8C /* ShowtimesViewController.swift in Sources */,
 			);
@@ -369,7 +369,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Now Playing/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tejen.codepath.Now-Playing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -385,7 +385,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Now Playing/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tejen.codepath.Now-Playing";
 				PRODUCT_NAME = "$(TARGET_NAME)";

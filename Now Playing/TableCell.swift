@@ -1,5 +1,5 @@
 //
-//  tableCell.swift
+//  TableCell.swift
 //  Now Playing
 //
 //  Created by Tejen Hasmukh Patel on 1/23/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class tableCell: UITableViewCell {
+class TableCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var synopsisView: UITextView!

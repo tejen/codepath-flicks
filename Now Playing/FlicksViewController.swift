@@ -94,7 +94,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
                 } else if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            self.movies = responseDictionary["results"] as! [NSDictionary];
+                            self.movies = responseDictionary["results"] as? [NSDictionary];
                             self.movies!.sortInPlace {
                                 if let a = $0 as? NSDictionary, b = $1 as? NSDictionary {
                                     return (b["vote_average"]?.integerValue < a["vote_average"]?.integerValue)
@@ -205,7 +205,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! tableCell;
+        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! TableCell;
         
         let movie = movies![indexPath.row];
         let title = movie["title"] as! String;
@@ -232,34 +232,15 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.ratingLabel.text = voteAverage.stringValue;
         
-//        
-//        var color = UIColor(red: 0.18, green: 0.8, blue: 0.44, alpha: 1);
-//        // rgb(46, 204, 113)
-//        if(popularity.integerValue < 40) { // rgb(39, 174, 96)
-//            color = UIColor(red: 0.15, green: 0.68, blue: 0.38, alpha: 1);
-//        }
-//        if(popularity.integerValue < 30) { // rgb(241, 196, 15)
-//            color = UIColor(red: 0.95, green: 0.77, blue: 0.059, alpha: 1);
-//        }
-        
         var color = UIColor(red: 0.27, green: 0.62, blue: 0.27, alpha: 1);
-        if(popularity.integerValue < 40) {
-            color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);
-        }
-        if(popularity.integerValue < 20) { // rgb(243, 156, 18)
-            color = UIColor(red: 0.95, green: 0.6, blue: 0.071, alpha: 1);
-        }
-        if(popularity.integerValue < 10) { // rgb(230, 126, 34)
-            color = UIColor(red: 0.90, green: 0.5, blue: 0.13, alpha: 1);
-        }
-        if(popularity.integerValue < 6) { // rgb(211, 84, 0)
-            color = UIColor(red: 0.83, green: 0.33, blue: 0.33, alpha: 1);
-        }
-        if(popularity.integerValue < 5) { // rgb(231, 76, 60)
-            color = UIColor(red: 0.91, green: 0.3, blue: 0.235, alpha: 1);
-        }
-        if(popularity.integerValue < 4) { // rgb(192, 57, 43)
-            color = UIColor(red: 0.75, green: 0.22, blue: 0.22, alpha: 1);
+        switch(popularity.integerValue) {
+            case 20..<40: color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);
+            case 10..<20: color = UIColor(red: 0.95, green: 0.6, blue: 0.071, alpha: 1);
+            case 6..<10: color = UIColor(red: 0.90, green: 0.5, blue: 0.13, alpha: 1);
+            case 5..<6: color = UIColor(red: 0.83, green: 0.33, blue: 0.33, alpha: 1);
+            case 4..<5: color = UIColor(red: 0.91, green: 0.3, blue: 0.235, alpha: 1);
+            case 0..<4: color = UIColor(red: 0.75, green: 0.22, blue: 0.22, alpha: 1);
+            default: break;
         }
         
         cell.ratingLabel.layer.backgroundColor = color.CGColor;
