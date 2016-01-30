@@ -2,7 +2,7 @@
 
 **Now Playing** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **11** hours spent in total
+Time spent: **14** hours spent in total
 
 ## User Stories
 
@@ -26,6 +26,7 @@ The following **additional** features are implemented:
 - [X] **Purchase tickets** from within the app!
 - [X] **Check showtimes** from within the app!
 - [X] **Watch trailers for each movie** from within the app! Loads a movie's IMDB page in a hidden UIWebView; then, javascript scrapes out the trailer video URL from the UIWebView, and the video at this URL is played back to the user. If IMDB doesn't have the trailer, **fallback** to Fandango trailer via Google's I'm Feeling Lucky algorithms.
+- [X] **Auto Layout**
 - [X] Progress Bar indicator for loading statuses
 - [X] Table view **sorted by Rating**
 - [X] Optionally switch from Table view to Collection View, **sorted by Popularity**)
