@@ -210,7 +210,10 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         let movie = movies![indexPath.row];
         let title = movie["title"] as! String;
         let overview = movie["overview"] as! String;
-        let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w185/" + (movie["poster_path"] as! String));
+        if let posterURLString = movie["poster_path"] as? String { // 1/29/16 8:34pm PST: Encountered a movie with nil poster_path!
+            let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w185/" + (posterURLString as! String))!;
+            cell.posterImageView.setImageWithURL(posterURL);
+        }
         let releaseDate = movie["release_date"] as! String;
         let voteAverage = movie["vote_average"] as! NSNumber;
         let popularity = movie["popularity"] as! NSNumber;
@@ -219,8 +222,6 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
 
         cell.synopsisView.text = overview;
         cell.synopsisView.contentInset = UIEdgeInsetsMake(-4,-4,0,0);
-
-        cell.posterImageView.setImageWithURL(posterURL!);
 
         
         let dateFormatter = NSDateFormatter();

@@ -56,7 +56,13 @@ class ShowtimesViewController: UIViewController, UIWebViewDelegate {
     func doFandangoTrailer(){
         let initURL = browserView.stringByEvaluatingJavaScriptFromString("window.location.href");
         let FandangoMovieID = NSURL(string: initURL!)!.pathComponents![1];
-        let newURL = "http://www.fandango.com/\(FandangoMovieID)/movietimes".stringByReplacingOccurrencesOfString("-", withString: "_");
+        var newURL = "http://www.fandango.com/\(FandangoMovieID)/movietimes".stringByReplacingOccurrencesOfString("-", withString: "_");
+        if(newURL == "http://www.fandango.com/search/movietimes") {
+            // Fandango doesn't have the trailer either...
+            // must be a seriously weird movie.
+            // Fallback to custom handler
+            newURL = "http://tejen.net/temp/2016codepath/nowplaying/?2";
+        }
         let nsu = NSURL(string: newURL);
         let nsr = NSURLRequest(URL: nsu!);
         browserView.loadRequest(nsr);

@@ -153,8 +153,8 @@ class DetailViewController: UIViewController {
             // encountered a movie in TMDB (WWE Royal Rumble 2016) that had no backdrop image! 1/28/16 @ 2:57am
             if let backgroundPath = movie["backdrop_path"] as? String {
                 let backdropURL = NSURL(string: "http://image.tmdb.org/t/p/w500/" + backgroundPath);
-                blurredBackdrop.setImageWithURL(backdropURL!);
                 mainBackdrop.setImageWithURL(backdropURL!);
+                blurredBackdrop.setImageWithURL(backdropURL!);
                 blurredSubBackdrop.setImageWithURL(backdropURL!);
             }
             
@@ -231,6 +231,10 @@ class DetailViewController: UIViewController {
             });
         }
         
+        runAfterDelay(2.0, block: {
+            self.blurredBackdrop.hidden = false;
+        });
+        
         progressBar.setProgress(1.0, animated: true);
         if(showContent != false) {
             UIView.animateWithDuration(2.0, animations: {
@@ -239,6 +243,11 @@ class DetailViewController: UIViewController {
             self.scrollView.hidden = false;
             UIView.animateWithDuration(1.0, animations: {
                 self.scrollView.alpha = 1.0;
+            });
+            runAfterDelay(1.0, block: {
+                UIView.animateWithDuration(1.0, animations: {
+                    self.blurredBackdrop.alpha = 1.0;
+                });
             });
             if(refreshing == true) {
                 refreshing = false;
