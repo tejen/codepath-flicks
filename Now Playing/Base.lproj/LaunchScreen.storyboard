@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" launchScreen="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -9,20 +9,32 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JiN-3D-I8w"/>
+                        <viewControllerLayoutGuide type="bottom" id="MMu-nF-LWl"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-Main" id="gWT-Xr-2Qc">
-                                <rect key="frame" x="117" y="242" width="88" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" id="bLO-kc-TMr">
-                                <rect key="frame" x="150" y="273" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="bLO-kc-TMr">
+                                <rect key="frame" x="150" y="271" width="20" height="20"/>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-Main" translatesAutoresizingMaskIntoConstraints="NO" id="gWT-Xr-2Qc">
+                                <rect key="frame" x="116" y="240" width="88" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="88" id="BMz-lF-zI0"/>
+                                    <constraint firstAttribute="height" constant="88" id="D42-yr-IXc"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bLO-kc-TMr" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-3" id="GeN-j7-0s3"/>
+                            <constraint firstItem="bLO-kc-TMr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="O1p-dn-K9B"/>
+                            <constraint firstItem="gWT-Xr-2Qc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZcM-Lc-Dhz"/>
+                            <constraint firstItem="gWT-Xr-2Qc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cVq-Ej-Bie"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
