@@ -18,6 +18,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var networkError: UIView!
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+    var endpoint = "";
     
     var time : Float = 0.0
     var timer: NSTimer?
@@ -39,6 +40,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.delegate = self;
         
         self.title = appDelegate.navbarHeader;
+        endpoint = appDelegate.endpoint;
         
         if(appDelegate.skipFetch == true) {
             appDelegate.skipFetch = false;
@@ -82,7 +84,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     func reloadList() {
         tracker = NSDate().timeIntervalSince1970;
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(
             URL: url!,
             cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
@@ -249,7 +251,8 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         let dateText = dateFormatter.stringFromDate(date!);
         cell.subtitleLabel.text = dateText;
         
-        cell.ratingLabel.text = voteAverage.stringValue;
+        let voteString = voteAverage.stringValue + ".0";
+        cell.ratingLabel.text = voteString[voteString.startIndex..<voteString.startIndex.advancedBy(3)];
         
         var color = UIColor(red: 0.27, green: 0.62, blue: 0.27, alpha: 1);
         switch(popularity.integerValue) {

@@ -39,8 +39,12 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         let TableVC = Storyboard.instantiateViewControllerWithIdentifier("FlicksViewController") as! UIViewController;
         
         switch(vc.title!) {
-            case "Left Tab": appDelegate.navbarHeader = "Now Playing";
-            case "Right Tab": appDelegate.navbarHeader = "Popular";
+            case "Left Tab":
+                appDelegate.navbarHeader = "Now Playing";
+                appDelegate.endpoint = "now_playing";
+            case "Right Tab":
+                appDelegate.navbarHeader = "Popular";
+                appDelegate.endpoint = "top_rated";
             default: break;
         }
         

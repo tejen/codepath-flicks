@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var allMovies: [NSDictionary]?;
     var movies: [NSDictionary]?;
     var navbarHeader = "Now Playing";
+    var endpoint = "now_playing";
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

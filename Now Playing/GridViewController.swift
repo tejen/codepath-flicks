@@ -15,12 +15,14 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var networkError: UIView!
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+    var endpoint = "";
+    
     var time : Float = 0.0
     var timer: NSTimer?
     var tracker = NSDate().timeIntervalSince1970;
     
     var refreshControl: UIRefreshControl?;
-    var refreshing = false;
+    var refreshing = false;    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         collectionView.delegate = self;
         
         self.title = appDelegate.navbarHeader;
+        endpoint = appDelegate.endpoint;
         
         let flow = UICollectionViewFlowLayout();
         let screenWidth = UIScreen.mainScreen().bounds.width;
@@ -69,7 +72,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     func reloadList() {
         tracker = NSDate().timeIntervalSince1970;
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(
             URL: url!,
             cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
@@ -146,7 +149,8 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         let dateText = dateFormatter.stringFromDate(date!);
         cell.collectionYearLabel.text = dateText;
         
-        cell.collectionRatingLabel.text = voteAverage.stringValue;
+        let voteString = voteAverage.stringValue + ".0";
+        cell.collectionRatingLabel.text = voteString[voteString.startIndex..<voteString.startIndex.advancedBy(3)];
         var color = UIColor(red: 0.27, green: 0.62, blue: 0.27, alpha: 1);
         switch(popularity.integerValue) {
             case 20..<40: color = UIColor(red: 0.223, green: 0.52, blue: 0.223, alpha: 1);

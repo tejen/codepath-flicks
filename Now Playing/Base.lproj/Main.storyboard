@@ -248,17 +248,17 @@
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JfX-av-xRF">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="r9O-zb-HH5">
-                                    <size key="itemSize" width="158" height="253"/>
+                                    <size key="itemSize" width="134" height="253"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="pZZ-iG-Mxh" customClass="CollectionCell" customModule="Now_Playing" customModuleProvider="target">
-                                        <rect key="frame" x="81" y="44" width="158" height="253"/>
+                                        <rect key="frame" x="0.0" y="44" width="134" height="253"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="158" height="253"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="134" height="253"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qCz-Ig-5Nv">
