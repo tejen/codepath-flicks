@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "noun_91562_cc-24px.png",
+      "filename" : "noun_91562_cc@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "noun_91562_cc-48px.png",
+      "filename" : "noun_91562_cc@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "noun_91562_cc-72px.png",
+      "filename" : "noun_91562_cc.png",
       "scale" : "3x"
     }
   ],

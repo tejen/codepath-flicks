@@ -14,6 +14,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var networkError: UIView!
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
     var time : Float = 0.0
     var timer: NSTimer?
     var tracker = NSDate().timeIntervalSince1970;
@@ -21,24 +22,34 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     var refreshControl: UIRefreshControl?;
     var refreshing = false;
     
-    var allMovies: [NSDictionary]?;
-    var movies: [NSDictionary]?;
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         collectionView.dataSource = self;
         collectionView.delegate = self;
         
+        self.title = appDelegate.navbarHeader;
+        
         let flow = UICollectionViewFlowLayout();
-        flow.itemSize = CGSizeMake(160, 240);
+        let screenWidth = UIScreen.mainScreen().bounds.width;
+        if(screenWidth > 410) { // for wider screens, 3 columns per row
+            flow.itemSize = CGSizeMake(screenWidth/3, 240);
+        } else { // for narrower screens, 2 columns per row
+            flow.itemSize = CGSizeMake(screenWidth/2+4, 240);
+        }
         flow.minimumInteritemSpacing = 0;
         flow.minimumLineSpacing = 0;
         collectionView.collectionViewLayout = flow;
         
-        loadStarted();
         
-        reloadList();
+        if(appDelegate.skipFetch == true) {
+            appDelegate.skipFetch = false;
+            loadSkip();
+            collectionView.reloadData();
+        } else {
+            loadStarted();
+            reloadList();
+        }
         
         let refreshControl = UIRefreshControl();
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -77,15 +88,15 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
                     self.showNetworkError();
                 } else if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData( data, options:[]) as? NSDictionary {
-                        self.movies = responseDictionary["results"] as? [NSDictionary];
-                        self.movies!.sortInPlace {
+                        self.appDelegate.movies = responseDictionary["results"] as? [NSDictionary];
+                        self.appDelegate.movies!.sortInPlace {
                         if let a = $0 as? NSDictionary, b = $1 as? NSDictionary {
                                 return (b["popularity"]?.integerValue < a["popularity"]?.integerValue)
                             } else {
                                 return false
                             }
                         }
-                        self.allMovies = self.movies;
+                        self.appDelegate.allMovies = self.appDelegate.movies;
                         let curTrack = NSDate().timeIntervalSince1970;
                         print(curTrack);
                         if((self.refreshing == false) || (curTrack - self.tracker > 2)) {
@@ -106,7 +117,7 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let movies = movies {
+        if let movies = appDelegate.movies {
             return movies.count;
         }
         return 0;
@@ -117,14 +128,16 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectionCell", forIndexPath: indexPath) as! CollectionCell;
         
-        let movie = movies![indexPath.row];
+        let movie = appDelegate.movies![indexPath.row];
         let voteAverage = movie["vote_average"] as! NSNumber;
-        let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w500/" + (movie["poster_path"] as! String));
+        let smallPosterURL = NSURL(string: "http://image.tmdb.org/t/p/w45" + (movie["poster_path"] as! String));
+        let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w500" + (movie["poster_path"] as! String));
         let releaseDate = movie["release_date"] as! String;
         let popularity = movie["popularity"] as! NSNumber;
         
-        cell.collectionPosterImageView.setImageWithURL(posterURL!);
-        cell.collectionPosterImageViewForeground.setImageWithURL(posterURL!);
+        cell.smallImageRequest = NSURLRequest(URL: smallPosterURL!);
+        cell.largeImageRequest = NSURLRequest(URL: posterURL!);
+        cell.collectionPosterBlurBackground.setImageWithURL(posterURL!);
         
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy-MM-dd";
@@ -183,6 +196,14 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    func loadSkip() {
+        progressBar.alpha = 0.0;
+        collectionView.hidden = false;
+        UIView.animateWithDuration(0.5, animations: {
+            self.collectionView.alpha = 1.0;
+        });
+    }
+    
     func showNetworkError() {
         self.networkError.alpha = 0.0;
         self.networkError.hidden = false;
@@ -201,7 +222,6 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
             });
         }
     }
-
     
     @IBAction func tapOnNetworkError(sender: AnyObject) {
         hideNetworkError();
@@ -224,11 +244,17 @@ class GridViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    @IBAction func backButtonPress(sender: AnyObject) {
+        appDelegate.showingGrid = false;
+        appDelegate.skipFetch = true;
+        navigationController?.popToViewController((navigationController?.childViewControllers[0])!, animated: true);
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "toDetails") {
             let cell = sender as! UICollectionViewCell;
             let indexPath = collectionView.indexPathForCell(cell);
-            let movie = movies![indexPath!.row];
+            let movie = appDelegate.movies![indexPath!.row];
             let detailViewController = segue.destinationViewController as! DetailViewController;
             detailViewController.movieID = movie["id"]!.integerValue;
             detailViewController.movieTitle = movie["title"]! as! String;

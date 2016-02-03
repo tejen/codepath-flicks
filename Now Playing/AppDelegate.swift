@@ -12,11 +12,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    var showingGrid = false;
+    var skipFetch = false;
+    var allMovies: [NSDictionary]?;
+    var movies: [NSDictionary]?;
+    var navbarHeader = "Now Playing";
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         UIApplication.sharedApplication().statusBarStyle = .LightContent;
+        UITabBar.appearance().tintColor = UIColor(red: 1, green: 0.47, blue: 0, alpha: 1);
         return true
     }
 
@@ -41,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
 }
 

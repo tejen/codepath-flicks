@@ -17,33 +17,41 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var networkError: UIView!
 
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+    
     var time : Float = 0.0
     var timer: NSTimer?
     var tracker = NSDate().timeIntervalSince1970;
     
     var refreshControl: UIRefreshControl?;
     var refreshing = false;
-
-    var allMovies: [NSDictionary]?;
-    var movies: [NSDictionary]?;
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        
+//        if(appDelegate.showingGrid == true) {
+//            performSegueWithIdentifier("toGrid", sender: self);
+//            return;
+//        }
         
-//        tableView.frame.origin.y = CGFloat(0);
-//        tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
         tableView.dataSource = self;
         tableView.delegate = self;
         searchBar.delegate = self;
         
-        loadStarted();
+        self.title = appDelegate.navbarHeader;
         
-        reloadList();
+        if(appDelegate.skipFetch == true) {
+            appDelegate.skipFetch = false;
+            loadSkip();
+            tableView.reloadData();
+        } else {
+            loadStarted();
+            reloadList();
+        }
         
         let refreshControl = UIRefreshControl();
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0);
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,7 +60,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        movies = searchText.isEmpty ? allMovies : allMovies!.filter({(data: NSDictionary) -> Bool in
+        appDelegate.movies = searchText.isEmpty ? appDelegate.allMovies : appDelegate.allMovies!.filter({(data: NSDictionary) -> Bool in
             let left = data["title"]! as! String;
             return left.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
         })
@@ -61,7 +69,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        (movies, searchBar.text) = (allMovies, "")
+        (appDelegate.movies, searchBar.text) = (appDelegate.allMovies, "")
         searchBar.resignFirstResponder()
         tableView.reloadData();
     }
@@ -94,15 +102,15 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
                 } else if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            self.movies = responseDictionary["results"] as? [NSDictionary];
-                            self.movies!.sortInPlace {
+                            self.appDelegate.movies = responseDictionary["results"] as? [NSDictionary];
+                            self.appDelegate.movies!.sortInPlace {
                                 if let a = $0 as? NSDictionary, b = $1 as? NSDictionary {
                                     return (b["vote_average"]?.integerValue < a["vote_average"]?.integerValue)
                                 } else {
                                     return false
                                 }
                             }
-                            self.allMovies = self.movies;
+                            self.appDelegate.allMovies = self.appDelegate.movies;
                             let curTrack = NSDate().timeIntervalSince1970;
                             print(curTrack);
                             if((self.refreshing == false) || (curTrack - self.tracker > 2)) {
@@ -163,6 +171,14 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    func loadSkip() {
+        progressBar.alpha = 0.0;
+        tableView.hidden = false;
+        UIView.animateWithDuration(0.5, animations: {
+            self.tableView.alpha = 1.0;
+        });
+    }
+    
     func showNetworkError() {
         self.networkError.alpha = 0.0;
         self.networkError.hidden = false;
@@ -198,7 +214,7 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let movies = movies {
+        if let movies = appDelegate.movies {
             return movies.count;
         }
         return 0;
@@ -207,12 +223,14 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! TableCell;
         
-        let movie = movies![indexPath.row];
+        let movie = appDelegate.movies![indexPath.row];
         let title = movie["title"] as! String;
         let overview = movie["overview"] as! String;
         if let posterURLString = movie["poster_path"] as? String { // 1/29/16 8:34pm PST: Encountered a movie with nil poster_path!
-            let posterURL = NSURL(string: "http://image.tmdb.org/t/p/w185/" + (posterURLString as! String))!;
-            cell.posterImageView.setImageWithURL(posterURL);
+            let smallImageUrl = "http://image.tmdb.org/t/p/w45/" + (posterURLString);
+            let largeImageUrl = "http://image.tmdb.org/t/p/w185/" + (posterURLString);
+            cell.smallImageRequest = NSURLRequest(URL: NSURL(string: smallImageUrl)!)
+            cell.largeImageRequest = NSURLRequest(URL: NSURL(string: largeImageUrl)!);          
         }
         let releaseDate = movie["release_date"] as! String;
         let voteAverage = movie["vote_average"] as! NSNumber;
@@ -247,14 +265,22 @@ class FlicksViewController: UIViewController, UITableViewDataSource, UITableView
         cell.ratingLabel.layer.backgroundColor = color.CGColor;
         cell.ratingLabel.layer.cornerRadius = 5;
         
+        let backgroundView = UIView();
+        backgroundView.backgroundColor = UIColor(red: 0.69, green: 0.33, blue: 0.01, alpha: 1);
+        cell.selectedBackgroundView = backgroundView;
+        
         return cell;
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "toGrid") {
+            appDelegate.showingGrid = true;
+            appDelegate.skipFetch = true;
+        }
         if(segue.identifier == "toDetails") {
             let cell = sender as! UITableViewCell;
             let indexPath = tableView.indexPathForCell(cell);
-            let movie = movies![indexPath!.row];
+            let movie = appDelegate.movies![indexPath!.row];
             let detailViewController = segue.destinationViewController as! DetailViewController;
             detailViewController.movieID = movie["id"]!.integerValue;
             detailViewController.movieTitle = movie["title"]! as! String;

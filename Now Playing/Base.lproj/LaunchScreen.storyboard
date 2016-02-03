@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -18,9 +18,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="bLO-kc-TMr">
-                                <rect key="frame" x="150" y="270" width="20" height="20"/>
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
                             </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-Main" translatesAutoresizingMaskIntoConstraints="NO" id="gWT-Xr-2Qc">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppMain" translatesAutoresizingMaskIntoConstraints="NO" id="gWT-Xr-2Qc">
                                 <rect key="frame" x="116" y="240" width="88" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="BMz-lF-zI0"/>
@@ -30,7 +30,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="bLO-kc-TMr" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-4" id="GeN-j7-0s3"/>
+                            <constraint firstItem="bLO-kc-TMr" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GeN-j7-0s3"/>
                             <constraint firstItem="bLO-kc-TMr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="O1p-dn-K9B"/>
                             <constraint firstItem="gWT-Xr-2Qc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZcM-Lc-Dhz"/>
                             <constraint firstItem="gWT-Xr-2Qc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cVq-Ej-Bie"/>
@@ -43,6 +43,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-Main" width="593" height="657"/>
+        <image name="AppMain" width="196" height="196"/>
     </resources>
 </document>

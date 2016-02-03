@@ -14,7 +14,8 @@ class DetailViewController: UIViewController {
     var movieID: Int?;
     var movieTitle = "";
     
-    @IBOutlet weak var navBar: UINavigationItem!
+
+    @IBOutlet weak var navBar: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var networkError: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -47,13 +48,14 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        navBar.title = movieTitle;
+        navBar.text = movieTitle;
         
         UIView.animateWithDuration(1.0, animations: {
             self.staller.alpha = 1.0;
             self.stallSpinner.alpha = 1.0;
         });
         
+        scrollView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0);
         scrollView.contentSize = CGSize(width: UIScreen.mainScreen().bounds.size.width, height: 823);
         scrollView.autoresizingMask = .FlexibleHeight;
         
@@ -154,7 +156,7 @@ class DetailViewController: UIViewController {
             if let backgroundPath = movie["backdrop_path"] as? String {
                 let backdropURL = NSURL(string: "http://image.tmdb.org/t/p/w500/" + backgroundPath);
                 mainBackdrop.setImageWithURL(backdropURL!);
-                blurredBackdrop.setImageWithURL(backdropURL!);
+//                blurredBackdrop.setImageWithURL(backdropURL!);
                 blurredSubBackdrop.setImageWithURL(backdropURL!);
             }
             
@@ -231,9 +233,9 @@ class DetailViewController: UIViewController {
             });
         }
         
-        runAfterDelay(2.0, block: {
-            self.blurredBackdrop.hidden = false;
-        });
+//        runAfterDelay(2.0, block: {
+//            self.blurredBackdrop.hidden = false;
+//        });
         
         progressBar.setProgress(1.0, animated: true);
         if(showContent != false) {
@@ -244,11 +246,11 @@ class DetailViewController: UIViewController {
             UIView.animateWithDuration(1.0, animations: {
                 self.scrollView.alpha = 1.0;
             });
-            runAfterDelay(1.0, block: {
-                UIView.animateWithDuration(1.0, animations: {
-                    self.blurredBackdrop.alpha = 1.0;
-                });
-            });
+//            runAfterDelay(1.0, block: {
+//                UIView.animateWithDuration(1.0, animations: {
+//                    self.blurredBackdrop.alpha = 1.0;
+//                });
+//            });
             if(refreshing == true) {
                 refreshing = false;
                 self.refreshControl!.endRefreshing();
@@ -314,6 +316,11 @@ class DetailViewController: UIViewController {
             showtimesViewController.movieIMDBid = movie!["imdb_id"]! as! String;
         }
     }
+    
+    @IBAction func closeModalButton(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: {});
+    }
+    
     
     /*
     // MARK: - Navigation
