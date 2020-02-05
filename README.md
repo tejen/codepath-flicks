@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 **(Watch this Video Walkthrough on [YouTube](http://youtu.be/pzkrRNaizEM) if the [GIF](http://x.tejen.net/bqn) lags or fails to download.)**
 
-[<img src='http://img.tejen.net/c9f0d052072252d4aa6b2f61c3ed7432.gif' title='Video Walkthrough' width='300' alt='Video Walkthrough' />](http://x.tejen.net/bqn)
+[<img src='https://img.tejen.net/46eb35bd84f89ac1c5da64ffdbe64316.png' title='Video Walkthrough' width='300' alt='Video Walkthrough' />](http://x.tejen.net/bqn)
 
 ```php
 NOTE: GIF FILE SIZE IS VERY LARGE (60+ MB).
@@ -66,7 +66,7 @@ GIF: [x.tejen.net/bqn](http://x.tejen.net/bqn)
 
 ## Notes
 
-Apple's Network Link Conditioner was absolutely indispensible during development. My network error messages are animated and tightly integrated with progress bar animations... developing this would have been a nightmare without the Conditioner. The Network Link Conditioner software should be endorsed, if not officially documented, in guidelines for this assignment.
+Apple's Network Link Conditioner was absolutely indispensable during development. My network error messages are animated and tightly integrated with progress bar animations... developing this would have been a nightmare without the Conditioner. The Network Link Conditioner software should be endorsed, if not officially documented, in guidelines for this assignment.
 
 TMDB could easily change the base paths for images. We should build the base paths using the separate APIs that they provide to this end. Furthermore, we should opt for being more decisive with image sizes... some peers were using full 500px width poster images and downscaling them into 60px UIImageViews, which resulted in an aliased appearance in the image.
 
